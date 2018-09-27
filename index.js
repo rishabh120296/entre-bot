@@ -10,7 +10,7 @@ WebSocket = require('websocket').w3cwebsocket;
 mongoose.connect(config.MONGODB_URL);
 
 const connection = new signalR.HubConnectionBuilder()
-  .withUrl("http://172.23.238.206:7001/connect/chat")
+  .withUrl("http://13.233.42.222/connect/chat")
   .configureLogging(signalR.LogLevel.Information)
   .build();
 
@@ -51,7 +51,7 @@ connection.on("SendMessageInChannel", (user, message) => {
     EntreBotModel.find({}).then(map => {
       console.log("Finding entry inside DB!");
       console.log(map);
-      var flag = 0;
+      flag = 0;
       if (map.length != 0) {
         console.log("Found something inside DB")
         map.forEach(obj => {
@@ -73,7 +73,8 @@ connection.on("SendMessageInChannel", (user, message) => {
 
             flag = 1;
             var workspacename;
-            axios.get('http://172.23.238.206:7001/connect/api/chat/workspaces/workspacename/' + message.channelId)
+            axios.get('http://13.233.42.222/connect/api/chat/workspaces/workspacename/' + message.channelId)
+            //axios.get('http://172.23.238.206:7001/connect/api/chat/workspaces/workspacename/' + message.channelId)
               .then(response => {
                 console.log("Getting workspace name");
                 workspacename = response.data;
